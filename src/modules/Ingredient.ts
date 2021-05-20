@@ -1,19 +1,23 @@
 import {Location} from './Location'
-import {FoodGroup} from './FoodGroup'
+import {FoodGroup} from './Enums'
 import {MacroNutrients} from './MacroNutrients'
 
 /**
  * Stores a simple ingredient.
- * @var price_ Price of the ingredient.
+ * @var name_ Name of the ingredient.
+ * @var price_ Price of the ingredient for each 100gr.
  * @var location_ Origin of the ingredient.
  * @var foodGroup_ Food group of the ingredient.
- * @var macroNutrients_ Macronutrients in each 100gr of the ingredient.
+ * @var macroNutrients_ Macronutrients in each 100gr.
+ * @var amount_ Amount of the ingredient count in grams.
  */
 export class Ingredient {
+  private name_: string;
   private price_: number;
   private location_: Location;
   private foodGroup_: FoodGroup;
   private macroNutrients_: MacroNutrients;
+  private amount_: number;
 
   /**
    * Stores all the values.
@@ -22,15 +26,45 @@ export class Ingredient {
    * @param newFoodGroup Food group of the ingredient.
    * @param newMacroNutrients Macronutrients in each 100gr of the ingredient.
    */
-  constructor(newPrice: number, newLocation: Location, newFoodGroup: FoodGroup, newMacroNutrients: MacroNutrients) {
+  constructor(newName: string, newPrice: number, newLocation: Location, newFoodGroup: FoodGroup, newMacroNutrients: MacroNutrients, newAmount: number) {
+    this.name_ = newName;
     this.price_ = newPrice;
     this.location_ = newLocation;
     this.foodGroup_ = newFoodGroup;
     this.macroNutrients_ = newMacroNutrients;
+    this.amount_ = newAmount;
+  }
+
+  /**
+   * Calculates the nutritional values in all the ingredient.
+   * @returns the nutritional values in all the ingredient.
+   */
+  public getNutritionalValues(): MacroNutrients {
+    let result: MacroNutrients = this.macroNutrients;
+    result.carbohydrates = (result.carbohydrates * 100) / this.amount;
+    result.lipids = (result.lipids * 100) / this.amount;
+    result.proteins = (result.proteins * 100) / this.amount;
+    return result;
+  }
+
+  /**
+   * Calculates the nprice of the ingredient.
+   * @returns the nprice of the ingredient.
+   */
+  public getPrice(): number {
+    return this.price * this.amount;
   }
 
 
   /** SETTERS **/
+
+  /**
+   * Sets a new value for the name.
+   * @param newName Contains the name of the ingredient.
+   */
+  public set name(newName: string) {
+    this.name_ = newName;
+  }
 
   /**
    * Sets a new value for the price.
@@ -63,9 +97,25 @@ export class Ingredient {
    public set macroNutrients(newMacroNutrients: MacroNutrients) {
     this.macroNutrients_ = newMacroNutrients;
   }
+  
+  /**
+   * Sets a new value for the amount.
+   * @param newAmount Contains the amount of the ingredient.
+   */
+   public set amount(newAmount: number) {
+    this.amount_ = newAmount;
+  }
 
 
   /** GETTERS **/
+
+  /**
+   * Returns the value of the name.
+   * @returns The name of the ingredient.
+   */
+  public get name(): string {
+    return this.name_;
+  }
 
   /**
    * Returns the value of the price.
@@ -97,5 +147,13 @@ export class Ingredient {
    */
   public get macroNutrients(): MacroNutrients {
     return this.macroNutrients_;
+  }
+
+  /**
+   * Returns the value of the amount.
+   * @returns The amount of the ingredient.
+   */
+  public get amount(): number {
+    return this.amount_;
   }
 }

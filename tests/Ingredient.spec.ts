@@ -1,7 +1,7 @@
 import 'mocha';
 import {expect} from 'chai';
 import {Location} from '../src/modules/Location'
-import {FoodGroup} from '../src/modules/FoodGroup'
+import {FoodGroup} from '../src/modules/Enums'
 import {Ingredient} from '../src/modules/Ingredient'
 import {MacroNutrients} from '../src/modules/MacroNutrients'
 
@@ -31,10 +31,20 @@ const price2: number = 35;
 const foodGroup1: FoodGroup = FoodGroup.Cereal;
 const foodGroup2: FoodGroup = FoodGroup.Meat;
 
-const ingredient = new Ingredient(price1, location1, foodGroup1, nutrients1);
+const amount1: number = 100;
+const amount2: number = 200;
+
+const name1: string = "Avena";
+const name2: string = "Ternera";
+
+
+const ingredient = new Ingredient(name1, price1, location1, foodGroup1, nutrients1, amount1);
 
 describe('Funcionamiento de la clase Ingredient:', () => {
   describe('Se puede puede acceder a sus atributos:', () => {
+    it('Se puede acceder al nombre.', () => {
+      expect(ingredient.name).to.be.equal(name1);
+    });
     it('Se puede acceder al precio.', () => {
       expect(ingredient.price).to.be.equal(price1);
     });
@@ -47,8 +57,15 @@ describe('Funcionamiento de la clase Ingredient:', () => {
     it('Se puede acceder a los nutrientes.', () => {
       expect(ingredient.macroNutrients).to.be.equal(nutrients1);
     });
+    it('Se puede acceder a la cantidad.', () => {
+      expect(ingredient.amount).to.be.equal(amount1);
+    });
   });
   describe('Se pueden modificar sus atributos:', () => {
+    it('Se puede modificar el nombre.', () => {
+      ingredient.name = name2;
+      expect(ingredient.name).to.be.equal(name2);
+    });
     it('Se puede modificar el precio.', () => {
       ingredient.price = price2;
       expect(ingredient.price).to.be.equal(price2);
@@ -64,6 +81,10 @@ describe('Funcionamiento de la clase Ingredient:', () => {
     it('Se pueden modificar los nutrientes.', () => {
       ingredient.macroNutrients = nutrients2;
       expect(ingredient.macroNutrients).to.be.equal(nutrients2);
+    });
+    it('Se puede modificar la cantidad.', () => {
+      ingredient.amount = amount2;
+      expect(ingredient.amount).to.be.equal(amount2);
     });
   });
 });
