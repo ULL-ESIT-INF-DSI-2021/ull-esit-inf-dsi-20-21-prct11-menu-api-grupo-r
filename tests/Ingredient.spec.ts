@@ -34,6 +34,12 @@ const foodGroup2: FoodGroup = FoodGroup.Meat;
 const amount1: number = 100;
 const amount2: number = 200;
 
+const totalPrice: number = (price2 * amount2) / 100;
+const totalCarbohydrates: number = (carbohydrates2 * amount2) / 100;
+const totalProteins: number = (proteins2 * amount2) / 100;
+const totalLipids: number = (lipids2 * amount2) / 100;
+const totalNutrients = new MacroNutrients(totalCarbohydrates, totalProteins, totalLipids);
+
 const name1: string = "Avena";
 const name2: string = "Ternera";
 
@@ -85,6 +91,14 @@ describe('Funcionamiento de la clase Ingredient:', () => {
     it('Se puede modificar la cantidad.', () => {
       ingredient.amount = amount2;
       expect(ingredient.amount).to.be.equal(amount2);
+    });
+  });
+  describe('Funcionamiento de las demás funciones:', () => {
+    it('Se puede obtener el valor nutricional completo.', () => {
+      expect(ingredient.getNutritionalValues()).to.be.deep.equal(totalNutrients);
+    });
+    it('Se puede obtener el precio completo.', () => {
+      expect(ingredient.getPrice()).to.be.equal(totalPrice);
     });
   });
 });

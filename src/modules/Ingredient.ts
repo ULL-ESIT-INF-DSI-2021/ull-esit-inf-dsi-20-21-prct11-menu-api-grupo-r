@@ -41,9 +41,9 @@ export class Ingredient {
    */
   public getNutritionalValues(): MacroNutrients {
     let result: MacroNutrients = this.macroNutrients;
-    result.carbohydrates = (result.carbohydrates * 100) / this.amount;
-    result.lipids = (result.lipids * 100) / this.amount;
-    result.proteins = (result.proteins * 100) / this.amount;
+    result.carbohydrates = (this.amount * result.carbohydrates) / 100;
+    result.lipids = (this.amount * result.lipids) / 100;
+    result.proteins = (this.amount * result.proteins) / 100;
     return result;
   }
 
@@ -52,7 +52,7 @@ export class Ingredient {
    * @returns the nprice of the ingredient.
    */
   public getPrice(): number {
-    return this.price * this.amount;
+    return (this.amount * this.price) / 100;
   }
 
 
