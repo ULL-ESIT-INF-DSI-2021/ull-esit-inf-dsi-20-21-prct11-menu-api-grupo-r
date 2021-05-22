@@ -31,6 +31,35 @@ export class Plate {
     });
   }
 
+  /**
+   * Inserts a new ingredient on the list of ingredients.
+   * @param newIngredient Ingredient to insert.
+   */
+  public insertIngredient(newIngredient: Ingredient): void {
+    this.ingredients.push(newIngredient);
+    this.price_ += newIngredient.getPrice();
+    this.nutritionalValues_.carbohydrates += newIngredient.getNutritionalValues().carbohydrates;
+    this.nutritionalValues_.proteins += newIngredient.getNutritionalValues().proteins;
+    this.nutritionalValues_.lipids += newIngredient.getNutritionalValues().lipids;
+  }
+
+  /**
+   * Removes an ingredient on the list of ingredients.
+   * @param oldIngredient Ingredient to remove.
+   * @returns The index of the ingredient or endefined if its not found.
+   */
+  public removeIngredient(oldIngredient: Ingredient): number | undefined {
+    const index: number | undefined = this.ingredients.indexOf(oldIngredient);
+    if (typeof index != "undefined") {
+      this.ingredients.splice(index, 1);
+      this.price_ += oldIngredient.getPrice();
+      this.nutritionalValues_.carbohydrates += oldIngredient.getNutritionalValues().carbohydrates;
+      this.nutritionalValues_.proteins += oldIngredient.getNutritionalValues().proteins;
+      this.nutritionalValues_.lipids += oldIngredient.getNutritionalValues().lipids;
+    }
+    return index;
+  }
+
 
   /** SETTERS **/
 
