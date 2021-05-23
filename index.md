@@ -21,9 +21,6 @@ Antes de empezar, hemos de crear la estructura. Para ello nos haremos los mismos
 ## Codigo de la práctica
 Pinche [aquí](https://github.com/ULL-ESIT-INF-DSI-2021/ull-esit-inf-dsi-20-21-prct11-menu-api-grupo-r/tree/main/src) para acceder al código.
 
-## Pruebas unitarias
-Pinche [aquí]() para acceder a las pruebas.
-
 ## Servidor
 El fichero principal para la implementación del servidor ha sido [**server.ts**](https://github.com/ULL-ESIT-INF-DSI-2021/ull-esit-inf-dsi-20-21-prct11-menu-api-grupo-r/blob/main/src/Server.ts). En este fichero haremos la gestión para un correcto funcionamiento, para ello tendremos un constructor, dentro de este creamos una variable *database* que almacena la dirección de la base de datos local. A continuación se realiza la conexión con MongoDB utilizando para ello *moongose*. Se establece el puerto donde el servidor escuchará y tras esto mostramos por pantalla el estado de la conexión si se ha hecho con éxito o no.
 
@@ -62,6 +59,128 @@ server.start();
 ```
 
 Tras esto tenemos unos *middlewares* como **morgan**, **express.json**, **express.urlencoded**, **compression**. Tras el constructor tenemos una función llamada **start** que se encargará de arrancar el servidor en modo escucha.
+
+## Schema
+Con los **schema** lo que haremos será modelar un objeto en *mongoose*, esto permitirá definir el tipo de cada una de las propiedades del objeto, si son obligatorias por ejemplo.
+
+Usando este modelo tendremos algunas ventajas como asegurarnos que tanto la instancia y el almacenamiento en la base de datos se ajusta a un esquema adecuado.
+
+En cuanto a los atributos usados para **Ingredient**:
+- **name:** nombre del ingrediente.
+- **price:** precio del ingrediente.
+- **location:** origen del ingrediente
+- **ingredientType:** grupo alimenticio del ingrediente.
+- **nutrients:** nutrientes del ingrediente.
+- **amount:** cantidad.
+
+```typescript
+export const IngredientSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    unique: true,
+    required: true,
+  },
+  price: {
+    type: Number, 
+    required: true,
+  },
+  location: {
+    type: String,
+    required: true,
+  },
+  ingredientType: {
+    type: IngredientType,
+    required: true,
+  },
+  nutrients: {
+    type: MacroNutrients,
+    required: true,
+  },
+  amount: {
+    type: Number, 
+    required: true,
+  }
+});
+  
+export const ingredient = mongoose.model<Ingredient>('Ingredient', IngredientSchema);
+```
+
+En cuanto a los atributos usados para **Plate**:
+- **name:** nombre del plato.
+- **type:** si se trata de un entrante, primero, segundo o postre.
+- **price:** origen del plato.
+- **ingredients:** ingredientes que componen el plato.
+- **nutrients:** nutrientes del plato.
+- **mainIngredientsType:** grupo alimenticio de los principales ingredientes del plato.
+
+```typescript
+export const PlateSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    unique: true,
+    required: true,
+  },
+  type: {
+    type: PlateType,
+    required: true,
+  },
+  price: {
+      type: Number,
+      required: true
+  },
+  ingredients: [{
+    type: Ingredient,
+    required: true,
+  }],
+  nutrients: {
+    type: MacroNutrients,
+    required: true,
+  },
+  mainIngredientType: {
+    type: IngredientType,
+    required: true,
+  }
+});
+
+export const plate = mongoose.model<Plate>('Plate', PlateSchema);
+```
+
+En cuanto a los atributos usados para **Menu**:
+- **name:** nombre del menú.
+- **price:** si se trata de un entrante, primero, segundo o postre.
+- **plates:**  platos que componen el menú.
+- **mainIngredient:** ingredientes principales del menú.
+- **nutritionalValues:** valor nutricional del menú.
+
+```typescript
+export const MenuSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    unique: true,
+    required: true,
+  },
+  price: {
+    type: Number,
+    required: true
+  },
+  plates: [{
+    type: Plate,
+    required: true,
+  }],
+  mainIngredient: {
+    type: Ingredient,
+    required: true,
+  },
+  nutritionalValues: {
+    type: MacroNutrients,
+    required: true,
+  }
+});
+
+export const menu = mongoose.model<Menu>("Menu", MenuSchema);
+```
+
+Por último, tanto en Ingredient, Plate como en Menu, en la última línea tenemos la invocación al método *model*.
 
 ## Routes
 Dentro de la carpeta **routes** tenemos los ficheros para la implentación de las rutas de la API, para poder trabajar con ellas se deben definir unas rutas en las que se harán las peticiones. En el fichero *index.routes.ts* que es el fichero principal dentro de esta carpeta, se define un mensaje de respuesta al hacer una petición a la raíz. Además se asignan e importan a este router todos los archivos de rutas de la API de ingredientes, platos y menús.
@@ -472,6 +591,9 @@ server.start();
 ```
 
 En nuestro caso se va a utilizar para crear una base de datos en un servidor para poder albergar los diferentes menús creados para la práctica. Para ello una vez descargado e instalado los paquetes necesarios en la máquina virtual, se procede a descargar la extensión de MongoDB en el Visual Estudio Code para poder crear, administrar y consultar nuestra base de datos.
+
+## Integración continua y Calidad del código
+No lo dijimos en el video debido al tiempo, pero hemos utilizado **SonarCloud** y **Coveralls** para realizar una correcta comprobar la calidad del código juntos a las herramientas de integración continua, como se puede apreciar el los badgets al principio del informe donde se puede ver de manera gráfica de como estan correctamente. Estos pasos se realizan debido a que es una buena práctica de programación para combinar los cambios hechos en el código de manera periódica y para analizar continuamente el proyecto.
 
 ## Mongoose
 Es una biblioteca de javascript que nos permite definir esquemas con datos tipados. Una vez creados los esquema, nos permite crear un modelo basado en dicho esquema, haciendo de este elemento fundamental para gestionar de una manera más sencilla la base de datos de mongodb desde node.js.
