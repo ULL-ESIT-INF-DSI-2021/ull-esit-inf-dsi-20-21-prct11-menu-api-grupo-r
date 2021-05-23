@@ -1,16 +1,5 @@
 # Informe práctica 11 - API Node/Express de gestión de información nutricional
 
-<p align="center">
-    <a href="https://github.com/ULL-ESIT-INF-DSI-2021/ull-esit-inf-dsi-20-21-prct10-async-sockets-hugofernandezs/actions/workflows/tests.yml">
-        <img alt="Tests" src="https://github.com/ULL-ESIT-INF-DSI-2021/ull-esit-inf-dsi-20-21-prct10-async-sockets-hugofernandezs/actions/workflows/tests.yml/badge.svg">
-    </a>
-    <a href='https://coveralls.io/github/ULL-ESIT-INF-DSI-2021/ull-esit-inf-dsi-20-21-prct11-menu-api-grupo-r?branch=main'>
-        <img src='https://coveralls.io/repos/github/ULL-ESIT-INF-DSI-2021/ull-esit-inf-dsi-20-21-prct11-menu-api-grupo-k/badge.svg?branch=main' alt='Coverage Status' />
-    </a>
-    <a href='https://sonarcloud.io/dashboard?id=ULL-ESIT-INF-DSI-2021_ull-esit-inf-dsi-20-21-prct10-async-sockets-hugofernandezs'>
-        <img src='https://sonarcloud.io/api/project_badges/measure?project=ULL-ESIT-INF-DSI-2021_ull-esit-inf-dsi-20-21-prct10-async-sockets-hugofernandezs&metric=alert_status' alt='Quality Gate Status' />
-    </a>
-</p>
 
 ## Introducción
 En esta práctica, implementaremos una API, haciendo uso de Node/Express, que permitirá llevar a cabo operaciones de creación, lectura, modificación y borrado (Create, Read, Update, Delete - CRUD) de ingredientes, platos y menús.
@@ -62,36 +51,6 @@ server.start();
 ```
 
 Tras esto tenemos unos *middlewares* como **morgan**, **express.json**, **express.urlencoded**, **compression**. Tras el constructor tenemos una función llamada **start** que se encargará de arrancar el servidor en modo escucha.
-
-## Schema
-Con los **schema** lo que haremos será modelar un objeto en *mongoose*, esto permitirá definir el tipo de cada una de las propiedades del objeto, si son obligatorias por ejemplo.
-
-Usando este modelo tendremos algunas ventajas como asegurarnos que tanto la instancia y el almacenamiento en la base de datos se ajusta a un esquema adecuado.
-
-En cuanto a los atributos usados para **Ingredient**:
-- **name:** nombre del ingrediente.
-- **price:** precio del ingrediente.
-- **location:** origen del ingrediente
-- **ingredientType:** grupo alimenticio del ingrediente.
-- **nutrients:** nutrientes del ingrediente.
-- **amount:** cantidad.
-
-En cuanto a los atributos usados para **Plate**:
-- **name:** nombre del plato.
-- **type:** si se trata de un entrante, primero, segundo o postre.
-- **price:** origen del plato.
-- **ingredients:** ingredientes que componen el plato.
-- **nutrients:** nutrientes del plato.
-- **mainIngredientsType:** grupo alimenticio de los principales ingredientes del plato.
-
-En cuanto a los atributos usados para **Menu**:
-- **name:** nombre del menú.
-- **price:** si se trata de un entrante, primero, segundo o postre.
-- **plates:**  platos que componen el menú.
-- **mainIngredient:** ingredientes principales del menú.
-- **nutritionalValues:** valor nutricional del menú.
-
-Por último, tanto en **Ingredient**, **Plate** como en **Menu**, en la última línea tenemos la invocación al método *model*.
 
 ## Routes
 Dentro de la carpeta **routes** tenemos los ficheros para la implentación de las rutas de la API, para poder trabajar con ellas se deben definir unas rutas en las que se harán las peticiones. En el fichero *index.routes.ts* que es el fichero principal dentro de esta carpeta, se define un mensaje de respuesta al hacer una petición a la raíz. Además se asignan e importan a este router todos los archivos de rutas de la API de ingredientes, platos y menús.
@@ -511,15 +470,19 @@ Es un servicio en la nube para distintos lenguajes de programación donde podrem
 
 ## Funcionamiento
 Para el funcionamiento hemos utilizado la extensión Thunder Client.
-
-![Thunder](https://github.com/ULL-ESIT-INF-DSI-2021/ull-esit-inf-dsi-20-21-prct11-menu-api-grupo-r/blob/gh-pages/Thunder.png)
-
+![Thunder](https://github.com/ULL-ESIT-INF-DSI-2021/ull-esit-inf-dsi-20-21-prct11-menu-api-grupo-r/blob/gh-pages/Thunder.png);
 Aquí podemos ver en la esquina izquierda el tipo de petición que estamos haciendo, en nuestro caso POST, aunque podemos elegir multitud de opciones dentro de estas, como DELETE para borrar o PATCH para modificar. Seguido de esto podemos ver una URL, esta es la dirección de nuestra base de datos alojada en mongoDB Atlas.
 En la parte de abao podemos distinguir varios campos como Query, para añadir argumentos típicos de una petición http, body para añadirle cuerpo a la petición... Nosotros nos centraremos en Body, pues es aquí donde le psaremos toda la información.
 
 Seleccionamos el formato JSON pues le vamos a pasar objetos JSON. Y escribimos lo que queramos, por ejemplo en la imagen estamos añadiendo un pollo, por lo que tendremos que pasarle el Schema completo. Si por el contrario quisieramos modificarlo, bastaría con ponerle el nombre del objeto y el campo que queremos modificar con su valor modificado. O para eliminar un objeto bastaría con poner el nombre del mismo.
 
-Todos estos cambios y peticiones se realizan de forma inmediata en el servidor y basta con refrescar el mismo para ver como los cambios son efectivos.
+Todos estos cambios y peticiones
+
+
+
+
+
+Hemos utilizado SonarCloud y Coveralls para realizar una correcta calidad del código y de integración continua del mismo, como se puede apreciar el los badgets al principio del informe donde se puede ver de manera gráfica de como estan correctamente. Estos pasos se realizan debido a que es una buena práctica de programación para combinar los cambios hechos en el código de manera periódica y para analizar continuamente el proyecto.
 
 ## Conclusión
 Durante el desarrollo de esta práctica hemos adquirido conocimientos y experiencia en cuanto a la configuración de APIs en NodeJS junto a Express. Con los conocimientos adquiridos a lo largo de esta asignatura podemos decir que, a nuestro criterio, nos hemos desenvuelto bastante bien con esto y seguramente con mucha menos facilidad con la gestión de peticiones. Mencionar que el uso de herramientas como MongoDB y Heroku nos ha parecido muy interesante y útiles para próximas implementaciones donde se nos propongan problemas semejantes a este.
