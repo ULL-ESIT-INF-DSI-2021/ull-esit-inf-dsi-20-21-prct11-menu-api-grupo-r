@@ -16,7 +16,7 @@ export const enum FoodGroup {
 /**
  * Enum to acces the type of plate.
  */
-export enum PlateOrder {
+export const enum PlateOrder {
   first = "First",
   second = "Second",
   third = "Third",

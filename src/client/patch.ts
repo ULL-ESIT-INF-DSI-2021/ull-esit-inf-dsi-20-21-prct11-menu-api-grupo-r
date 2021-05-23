@@ -1,6 +1,6 @@
 import * as express from 'express';
-import {Ingredient} from '../modules/IngredientsMongoose';
-import {Plate} from '../modules/PlateMongoose';
+import {Ingredient} from '../models/IngredientsMongoose';
+import {Plate} from '../models/PlateMongoose';
 
 export const patchRouter = express.Router();
 

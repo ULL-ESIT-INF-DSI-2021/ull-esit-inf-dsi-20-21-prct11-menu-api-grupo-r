@@ -1,10 +1,10 @@
 import 'mocha';
 import {expect} from 'chai';
-import {Plate} from "../src/modules/Plate";
-import {Location} from '../src/modules/Location'
-import {FoodGroup} from "../src/modules/Enums";
-import {Ingredient} from "../src/modules/Ingredient";
-import {MacroNutrients} from "../src/modules/MacroNutrients";
+import {Plate} from "../src/models/Plate";
+import {Location} from '../src/models/Location'
+import {FoodGroup} from "../src/models/Enums";
+import {Ingredient} from "../src/models/Ingredient";
+import {MacroNutrients} from "../src/models/MacroNutrients";
 
 const country1: string = "España";
 const country2: string = "Francia";

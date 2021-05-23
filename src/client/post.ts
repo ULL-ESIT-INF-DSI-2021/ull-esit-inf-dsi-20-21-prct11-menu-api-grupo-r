@@ -1,6 +1,6 @@
 import * as express from 'express';
-import {Ingredient, IngredientInterface} from '../modules/IngredientsMongoose';
-import {Plate, PlateInterface} from '../modules/PlateMongoose';
+import {Ingredient, IngredientInterface} from '../models/IngredientsMongoose';
+import {Plate, PlateInterface} from '../models/PlateMongoose';
 
 export const postRouter = express.Router();
 

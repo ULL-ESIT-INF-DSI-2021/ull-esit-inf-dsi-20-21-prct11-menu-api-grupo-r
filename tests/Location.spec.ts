@@ -1,6 +1,6 @@
 import 'mocha';
 import {expect} from 'chai';
-import {Location} from '../src/modules/Location'
+import {Location} from '../src/models/Location'
 
 const country1: string = "España";
 const country2: string = "Francia";
