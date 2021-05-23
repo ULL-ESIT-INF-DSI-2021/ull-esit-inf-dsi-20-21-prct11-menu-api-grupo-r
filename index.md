@@ -42,7 +42,7 @@ Durante esta peticion lo que haremos será eliminar un determinado ingrediente, 
 
 Como hemos hecho con anteriores peticiones se han gestionado los errores como por ejemplo que no se le pase por parámetro el nombre del objeto o que simplemente este nombre no esté en la base de datos.
 
-## Conclusion
+## Conclusión
 Durante el desarrollo de esta práctica hemos adquirido conocimientos y experiencia en cuanto a la configuración de APIs en NodeJS junto a Express. Con los conocimientos adquiridos a lo largo de esta asignatura podemos decir que, a nuestro criterio, nos hemos desenvuelto bastante bien con esto y seguramente con mucha menos facilidad con la gestión de peticiones. Mencionar que el uso de herramientas como MongoDB y Heroku nos ha parecido muy interesante y útiles para próximas implementaciones donde se nos propongan problemas semejantes a este.
 
 ## Bibliografía
