@@ -476,10 +476,7 @@ En la parte de abao podemos distinguir varios campos como Query, para añadir ar
 
 Seleccionamos el formato JSON pues le vamos a pasar objetos JSON. Y escribimos lo que queramos, por ejemplo en la imagen estamos añadiendo un pollo, por lo que tendremos que pasarle el Schema completo. Si por el contrario quisieramos modificarlo, bastaría con ponerle el nombre del objeto y el campo que queremos modificar con su valor modificado. O para eliminar un objeto bastaría con poner el nombre del mismo.
 
-Todos estos cambios y peticiones
-
-
-
+Todos estos cambios y peticiones se realizan de forma inmediata en la base de datos. Basta con actualizarla y podremos ver los resultados.
 
 
 Hemos utilizado SonarCloud y Coveralls para realizar una correcta calidad del código y de integración continua del mismo, como se puede apreciar el los badgets al principio del informe donde se puede ver de manera gráfica de como estan correctamente. Estos pasos se realizan debido a que es una buena práctica de programación para combinar los cambios hechos en el código de manera periódica y para analizar continuamente el proyecto.
