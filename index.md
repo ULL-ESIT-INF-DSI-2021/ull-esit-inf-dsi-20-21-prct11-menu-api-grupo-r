@@ -14,7 +14,43 @@ Pinche [aquí](https://github.com/ULL-ESIT-INF-DSI-2021/ull-esit-inf-dsi-20-21-p
 Pinche [aquí]() para acceder a las pruebas.
 
 ## Servidor
-El fichero principal para la implementación del servidor ha sido [**server.ts**](https://github.com/ULL-ESIT-INF-DSI-2021/ull-esit-inf-dsi-20-21-prct11-menu-api-grupo-r/blob/main/src/Server.ts). En este fichero haremos la gestión para un correcto funcionamiento, para ello tendremos un constructor, dentro de este creamos una variable *database* que almacena la dirección de la base de datos local. A continuación se realiza la conexión con MongoDB utilizando para ello *moongose*. Se establece el puerto donde el servidor escuchará y tras esto mostramos por pantalla el estado de la conexión si se ha hecho con éxito o no. Tras esto tenemos unos *middlewares* como **morgan**, **express.json**, **express.urlencoded**, **compression**. Tras el constructor tenemos una función llamada **start** que se encargará de arrancar el servidor en modo escucha.
+El fichero principal para la implementación del servidor ha sido [**server.ts**](https://github.com/ULL-ESIT-INF-DSI-2021/ull-esit-inf-dsi-20-21-prct11-menu-api-grupo-r/blob/main/src/Server.ts). En este fichero haremos la gestión para un correcto funcionamiento, para ello tendremos un constructor, dentro de este creamos una variable *database* que almacena la dirección de la base de datos local. A continuación se realiza la conexión con MongoDB utilizando para ello *moongose*. Se establece el puerto donde el servidor escuchará y tras esto mostramos por pantalla el estado de la conexión si se ha hecho con éxito o no.
+
+```typescript
+export class Server {
+  public app = express();
+
+  constructor(port: number) {
+    const DATABASE = 'mongodb://localhost/menu-app';
+    mongoose.set('useFindAndModify', true);
+    mongoose.connect(process.env.MONGODB_URL || DATABASE, {
+      useNewUrlParser: true,
+      useCreateIndex: true
+    }).then(db => console.log("Database connected!"))
+    .catch(db => console.error("Error connecting to Database"));
+
+    this.app.set('port', process.env.PORT  || port);
+    
+    this.app.use(morgan('dev'));
+    this.app.use(express.json());
+    this.app.use(express.urlencoded({extended: false}));
+    this.app.use(compression());
+
+    this.app.use(apiRoutes.router);
+  }
+
+  public start() {
+    this.app.listen(this.app.get('port'), () => {
+      console.log('Server listening on port', this.app.get('port'));
+    })
+  }
+}
+
+const server = new Server(3030);
+server.start();
+```
+
+Tras esto tenemos unos *middlewares* como **morgan**, **express.json**, **express.urlencoded**, **compression**. Tras el constructor tenemos una función llamada **start** que se encargará de arrancar el servidor en modo escucha.
 
 ## Routes
 Dentro de la carpeta **routes** tenemos los ficheros para la implentación de las rutas de la API, para poder trabajar con ellas se deben definir unas rutas en las que se harán las peticiones. En el fichero *index.routes.ts* que es el fichero principal dentro de esta carpeta, se define un mensaje de respuesta al hacer una petición a la raíz. Además se asignan e importan a este router todos los archivos de rutas de la API de ingredientes, platos y menús.
