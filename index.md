@@ -42,6 +42,15 @@ Durante esta peticion lo que haremos será eliminar un determinado ingrediente, 
 
 Como hemos hecho con anteriores peticiones se han gestionado los errores como por ejemplo que no se le pase por parámetro el nombre del objeto o que simplemente este nombre no esté en la base de datos.
 
+## MongoDB
+Es un sistema de código abierto de bases de datos, orientada a documentos, de tipo no relacional donde puedes administrar tus datos mediante una estructura BSON con un esquema dinámico, haciendo que sea más sencillo y rápido de integrar en las aplicaciones. En nuestro caso se va a utilizar para crear una base de datos en un servidor para poder albergar los diferentes menús creados para la práctica.
+
+## Mongoose
+Es una biblioteca de javascript que nos permite definir esquemas con datos tipados. Una vez creados los esquema, nos permite crear un modelo basado en dicho esquema, haciendo de este elemento fundamental para gestionar de una manera más sencilla la base de datos de mongodb desde node.js.
+
+## Heroku
+Es un servicio en la nube para distintos lenguajes de programación donde podremos desplegar nuestro código y ejecutar el cliente en contenedores virtuales en tiempo real. En nuestro caso hemos creado una cuenta en la la web, creado nuestra app y la hemos vinculado con nuestro github.
+
 ## Conclusión
 Durante el desarrollo de esta práctica hemos adquirido conocimientos y experiencia en cuanto a la configuración de APIs en NodeJS junto a Express. Con los conocimientos adquiridos a lo largo de esta asignatura podemos decir que, a nuestro criterio, nos hemos desenvuelto bastante bien con esto y seguramente con mucha menos facilidad con la gestión de peticiones. Mencionar que el uso de herramientas como MongoDB y Heroku nos ha parecido muy interesante y útiles para próximas implementaciones donde se nos propongan problemas semejantes a este.
 
