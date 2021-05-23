@@ -1,5 +1,16 @@
 # Informe práctica 11 - API Node/Express de gestión de información nutricional
 
+<p align="center">
+    <a href="https://github.com/ULL-ESIT-INF-DSI-2021/ull-esit-inf-dsi-20-21-prct10-async-sockets-hugofernandezs/actions/workflows/tests.yml">
+        <img alt="Tests" src="https://github.com/ULL-ESIT-INF-DSI-2021/ull-esit-inf-dsi-20-21-prct10-async-sockets-hugofernandezs/actions/workflows/tests.yml/badge.svg">
+    </a>
+    <a href='https://coveralls.io/github/ULL-ESIT-INF-DSI-2021/ull-esit-inf-dsi-20-21-prct11-menu-api-grupo-r?branch=master'>
+        <img src='https://coveralls.io/repos/github/ULL-ESIT-INF-DSI-2021/ull-esit-inf-dsi-20-21-prct11-menu-api-grupo-r/badge.svg?branch=master' alt='Coverage Status' />
+    </a>
+    <a href='https://sonarcloud.io/dashboard?id=ULL-ESIT-INF-DSI-2021_ull-esit-inf-dsi-20-21-prct10-async-sockets-hugofernandezs'>
+        <img src='https://sonarcloud.io/api/project_badges/measure?project=ULL-ESIT-INF-DSI-2021_ull-esit-inf-dsi-20-21-prct10-async-sockets-hugofernandezs&metric=alert_status' alt='Quality Gate Status' />
+    </a>
+</p>
 
 ## Introducción
 En esta práctica, implementaremos una API, haciendo uso de Node/Express, que permitirá llevar a cabo operaciones de creación, lectura, modificación y borrado (Create, Read, Update, Delete - CRUD) de ingredientes, platos y menús.
