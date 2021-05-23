@@ -35,8 +35,8 @@ class MenuRoutes {
   }
 
   postMenu(req: Request, res: Response) {
-    const menu = new menu(req.body);
-    menu.save().then((menus) => {
+    const menu_ = new menu(req.body);
+    menu_.save().then((menus) => {
       res.status(201).send(menus);
     }).catch((error: Error) => {
       res.status(400).send(error);
@@ -46,17 +46,17 @@ class MenuRoutes {
   patchMenu(req: Request, res: Response) {
     if (!req.query.name) {
       res.status(400).send({
-        error: 'A name must be provided',
+        error: 'You must give the name of th emenu',
       });
     } else {
-      const allowedUpdates = ['name', 'ingredientTypes', 'courses', 'menuPrice', 'menuComposition'];
+      const allowedUpdates = ['name', 'price', 'plates', 'mainIngredient', 'nutritionalValues'];
       const actualUpdates = Object.keys(req.body);
       const isValidUpdate =
         actualUpdates.every((update) => allowedUpdates.includes(update));
 
       if (!isValidUpdate) {
         res.status(400).send({
-          error: 'Update is not permitted',
+          error: 'You must enter a valid update data.',
         });
       } else {
         menu.findOneAndUpdate({ name: req.query.name.toString() }, req.body, {
@@ -78,7 +78,7 @@ class MenuRoutes {
   deleteMenu(req: Request, res: Response) {
     if (!req.query.name) {
       res.status(400).send({
-        error: 'A name must be provided',
+        error: 'You must provide a name',
       });
     } else {
       menu.findOneAndDelete({ name: req.query.name.toString() }).then((menu) => {

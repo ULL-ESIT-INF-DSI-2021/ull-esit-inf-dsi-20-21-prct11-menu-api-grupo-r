@@ -1,7 +1,7 @@
 import {Router} from 'express'
-import ingredientRoutes from './ingredients.routes'
-import courseRoutes from './plates.routes'
-import MenuRoutes from './menus.routes'
+import ingredientRoutes from './IngredientsRoutes'
+import plateRoutes from './PlatesRoutes'
+import menuRoutes from './MenusRoutes'
 
 /**
  * Enrutador principal
@@ -14,11 +14,11 @@ export class ApiRoutes {
   }
 
   routes() {
-    this.router.get('/', (req, res) => {
-      res.send("To use the API, you must go to: /ingredients /plates or /menus");
+    this.router.get('*', (req, res) => {
+      res.send('Please, use a valid route');
     })
     this.router.use(ingredientRoutes);
-    this.router.use(courseRoutes);
+    this.router.use(plateRoutes);
     this.router.use(menuRoutes);
   }
 }

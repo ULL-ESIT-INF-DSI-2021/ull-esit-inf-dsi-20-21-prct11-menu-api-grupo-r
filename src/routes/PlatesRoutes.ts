@@ -38,7 +38,8 @@ class PlateRoutes {
   }
 
   postPlate(req: Request, res: Response) {
-    plate.save().then((plates) => {
+    const plate_ = new plate(req.body);
+    plate_.save().then((plates) => {
       res.status(201).send(plates);
     }).catch((error: Error) => {
       res.status(400).send(error);
@@ -48,27 +49,27 @@ class PlateRoutes {
   patchPlate(req: Request, res: Response) {
     if (!req.query.name) {
       res.status(400).send({
-        error: 'A name must be provided',
+        error: 'You must provide a name',
       });
     } else {
-      const allowedUpdates = ['name', 'courseType', 'ingredients', 'coursePrice', 'courseComposition'];
+      const allowedUpdates = ['name', 'price', 'type', 'platePrice', 'ingredients', 'nutritionalValues', 'mainIngredientType'];
       const actualUpdates = Object.keys(req.body);
       const isValidUpdate =
         actualUpdates.every((update) => allowedUpdates.includes(update));
 
       if (!isValidUpdate) {
         res.status(400).send({
-          error: 'Update is not permitted',
+          error: 'You must enter a valid update data.',
         });
       } else {
         plate.findOneAndUpdate({ name: req.query.name.toString() }, req.body, {
           new: true,
           runValidators: true,
-        }).then((course) => {
-          if (!course) {
+        }).then((plate) => {
+          if (!plate) {
             res.status(404).send();
           } else {
-            res.send(course);
+            res.send(plate);
           }
         }).catch((error) => {
           res.status(400).send(error);
@@ -80,14 +81,14 @@ class PlateRoutes {
   deletePlate(req: Request, res: Response) {
     if (!req.query.name) {
       res.status(400).send({
-        error: 'A name must be procided',
+        error: 'You must give the name of the menu',
       });
     } else {
-      plate.findOneAndDelete({ name: req.query.name.toString() }).then((course) => {
-        if (!course) {
+      plate.findOneAndDelete({ name: req.query.name.toString() }).then((plate) => {
+        if (!plate) {
           res.status(404).send();
         } else {
-          res.send(course);
+          res.send(plate);
         }
       }).catch(() => {
         res.status(400).send();
@@ -104,6 +105,6 @@ class PlateRoutes {
   }
 }
 
-const courseRoutes = new PlateRoutes();
-courseRoutes.routes();
-export default courseRoutes.router;
+const plateRoutes = new PlateRoutes();
+plateRoutes.routes();
+export default plateRoutes.router;

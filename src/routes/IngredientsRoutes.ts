@@ -35,8 +35,8 @@ class IngredientRoutes {
   }
 
   postIngredient(req: Request, res: Response) {
-    const ingredient = new ingredient(req.body);
-    ingredient.save().then((ingredient) => {
+    const ingredient_ = new ingredient(req.body);
+    ingredient_.save().then((ingredient) => {
       res.status(201).send(ingredient);
     }).catch((error: Error) => {
       res.status(400).send(error);
@@ -49,14 +49,14 @@ class IngredientRoutes {
         error: 'A name must be provided',
       });
     } else {
-      const allowedUpdates = ['name', 'ingredientGroup', 'location', 'nutrients', 'pricePerKg'];
+      const allowedUpdates = ['name', 'price', 'location', 'ingredientType', 'macroNutrients', 'amount'];
       const actualUpdates = Object.keys(req.body);
       const isValidUpdate =
         actualUpdates.every((update) => allowedUpdates.includes(update));
 
       if (!isValidUpdate) {
         res.status(400).send({
-          error: 'Update is not permitted',
+          error: 'Please enter a valid update',
         });
       } else {
         ingredient.findOneAndUpdate({ name: req.query.name.toString() }, req.body, {
@@ -78,7 +78,7 @@ class IngredientRoutes {
   deleteIngredient(req: Request, res: Response) {
     if(!req.query.name) {
       res.status(400).send({
-        error: 'A name must be provided',
+        error: 'U must give the name of the ingredient',
       });
     } else {
       ingredient.findOneAndDelete({name: req.query.name.toString()}).then((ingredient) => {
