@@ -1,8 +1,8 @@
 # Informe práctica 11 - API Node/Express de gestión de información nutricional
 
 <p align="center">
-    <a href="https://github.com/ULL-ESIT-INF-DSI-2021/ull-esit-inf-dsi-20-21-prct11-menu-api-grupo-r/actions/workflows/tests.yml">
-        <img alt="Tests" src="https://github.com/ULL-ESIT-INF-DSI-2021/ull-esit-inf-dsi-20-21-prct11-menu-api-grupo-r/actions/workflows/tests.yml/badge.svg">
+    <a href="https://github.com/ULL-ESIT-INF-DSI-2021/ull-esit-inf-dsi-20-21-prct10-async-sockets-hugofernandezs/actions/workflows/tests.yml">
+        <img alt="Tests" src="https://github.com/ULL-ESIT-INF-DSI-2021/ull-esit-inf-dsi-20-21-prct10-async-sockets-hugofernandezs/actions/workflows/tests.yml/badge.svg">
     </a>
     <a href='https://coveralls.io/github/ULL-ESIT-INF-DSI-2021/ull-esit-inf-dsi-20-21-prct11-menu-api-grupo-r?branch=main'>
         <img src='https://coveralls.io/repos/github/ULL-ESIT-INF-DSI-2021/ull-esit-inf-dsi-20-21-prct11-menu-api-grupo-k/badge.svg?branch=main' alt='Coverage Status' />
@@ -62,6 +62,36 @@ server.start();
 ```
 
 Tras esto tenemos unos *middlewares* como **morgan**, **express.json**, **express.urlencoded**, **compression**. Tras el constructor tenemos una función llamada **start** que se encargará de arrancar el servidor en modo escucha.
+
+## Schema
+Con los **schema** lo que haremos será modelar un objeto en *mongoose*, esto permitirá definir el tipo de cada una de las propiedades del objeto, si son obligatorias por ejemplo.
+
+Usando este modelo tendremos algunas ventajas como asegurarnos que tanto la instancia y el almacenamiento en la base de datos se ajusta a un esquema adecuado.
+
+En cuanto a los atributos usados para **Ingredient**:
+- **name:** nombre del ingrediente.
+- **price:** precio del ingrediente.
+- **location:** origen del ingrediente
+- **ingredientType:** grupo alimenticio del ingrediente.
+- **nutrients:** nutrientes del ingrediente.
+- **amount:** cantidad.
+
+En cuanto a los atributos usados para **Plate**:
+- **name:** nombre del plato.
+- **type:** si se trata de un entrante, primero, segundo o postre.
+- **price:** origen del plato.
+- **ingredients:** ingredientes que componen el plato.
+- **nutrients:** nutrientes del plato.
+- **mainIngredientsType:** grupo alimenticio de los principales ingredientes del plato.
+
+En cuanto a los atributos usados para **Menu**:
+- **name:** nombre del menú.
+- **price:** si se trata de un entrante, primero, segundo o postre.
+- **plates:**  platos que componen el menú.
+- **mainIngredient:** ingredientes principales del menú.
+- **nutritionalValues:** valor nutricional del menú.
+
+Por último, tanto en **Ingredient**, **Plate** como en **Menu**, en la última línea tenemos la invocación al método *model*.
 
 ## Routes
 Dentro de la carpeta **routes** tenemos los ficheros para la implentación de las rutas de la API, para poder trabajar con ellas se deben definir unas rutas en las que se harán las peticiones. En el fichero *index.routes.ts* que es el fichero principal dentro de esta carpeta, se define un mensaje de respuesta al hacer una petición a la raíz. Además se asignan e importan a este router todos los archivos de rutas de la API de ingredientes, platos y menús.
