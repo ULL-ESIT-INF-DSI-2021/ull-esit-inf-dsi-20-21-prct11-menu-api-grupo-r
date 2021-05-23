@@ -1,5 +1,5 @@
-import {Request, Response, Router} from 'express'
-import Ingredient from '../models/Ingredient'
+import {Request, Response, Router} from 'express';
+import {ingredient} from '../schemas/IngredientSchema';
 
 class IngredientRoutes {
   router: Router;
@@ -11,7 +11,7 @@ class IngredientRoutes {
   getIngredients(req: Request, res: Response) {
     const filter = req.query.name?{name: req.query.name.toString()}:{};
 
-    Ingredient.find(filter).then((ingredients) => {
+    ingredient.find(filter).then((ingredients) => {
       if (ingredients.length !== 0) {
         res.send(ingredients);
       } else {
@@ -23,7 +23,7 @@ class IngredientRoutes {
   }
 
   getIngredientById(req: Request, res: Response) {
-    Ingredient.findById(req.params.id).then((ingredient) => {
+    ingredient.findById(req.params.id).then((ingredient) => {
       if(!ingredient) {
         res.status(404).send();
       } else {
@@ -35,7 +35,7 @@ class IngredientRoutes {
   }
 
   postIngredient(req: Request, res: Response) {
-    const ingredient = new Ingredient(req.body);
+    const ingredient = new ingredient(req.body);
     ingredient.save().then((ingredient) => {
       res.status(201).send(ingredient);
     }).catch((error: Error) => {
@@ -59,7 +59,7 @@ class IngredientRoutes {
           error: 'Update is not permitted',
         });
       } else {
-        Ingredient.findOneAndUpdate({ name: req.query.name.toString() }, req.body, {
+        ingredient.findOneAndUpdate({ name: req.query.name.toString() }, req.body, {
           new: true,
           runValidators: true,
         }).then((ingredient) => {
@@ -81,7 +81,7 @@ class IngredientRoutes {
         error: 'A name must be provided',
       });
     } else {
-      Ingredient.findOneAndDelete({name: req.query.name.toString()}).then((ingredient) => {
+      ingredient.findOneAndDelete({name: req.query.name.toString()}).then((ingredient) => {
         if(!ingredient) {
           res.status(404).send();
         } else {

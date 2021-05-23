@@ -1,19 +1,22 @@
-import {Request, Response, Router} from 'express'
-import Course from '../models/Course'
+import mongoose from 'mongoose';
+import {Plate} from '../models/Plate'
+import {PlateSchema, plate} from '../schemas/PlateSchema';
+import {Request, Response, Router} from 'express';
 
-class CourseRoutes {
+
+class PlateRoutes {
   router: Router;
   constructor() {
     this.router = Router();
     this.routes();
   }
 
-  getCourses(req: Request, res: Response) {
+  getPlates(req: Request, res: Response) {
     const filter = req.query.name ? { name: req.query.name.toString() } : {};
 
-    Course.find(filter).then((courses) => {
-      if (courses.length !== 0) {
-        res.send(courses);
+    plate.find(filter).then((plates) => {
+      if (plates.length !== 0) {
+        res.send(plates);
       } else {
         res.status(404).send();
       }
@@ -22,28 +25,27 @@ class CourseRoutes {
     })
   }
 
-  getCourseById(req: Request, res: Response) {
-    Course.findById(req.params.id).then((courses) => {
-      if (!courses) {
+  getPlateById(req: Request, res: Response) {
+    plate.findById(req.params.id).then((plates) => {
+      if (!plates) {
         res.status(404).send();
       } else {
-        res.send(courses);
+        res.send(plates);
       }
     }).catch(() => {
       res.status(500).send();
     });
   }
 
-  postCourse(req: Request, res: Response) {
-    const course = new Course(req.body);
-    course.save().then((courses) => {
-      res.status(201).send(courses);
+  postPlate(req: Request, res: Response) {
+    plate.save().then((plates) => {
+      res.status(201).send(plates);
     }).catch((error: Error) => {
       res.status(400).send(error);
     });
   }
 
-  patchCourse(req: Request, res: Response) {
+  patchPlate(req: Request, res: Response) {
     if (!req.query.name) {
       res.status(400).send({
         error: 'A name must be provided',
@@ -59,7 +61,7 @@ class CourseRoutes {
           error: 'Update is not permitted',
         });
       } else {
-        Course.findOneAndUpdate({ name: req.query.name.toString() }, req.body, {
+        plate.findOneAndUpdate({ name: req.query.name.toString() }, req.body, {
           new: true,
           runValidators: true,
         }).then((course) => {
@@ -75,13 +77,13 @@ class CourseRoutes {
     }
   }
 
-  deleteCourse(req: Request, res: Response) {
+  deletePlate(req: Request, res: Response) {
     if (!req.query.name) {
       res.status(400).send({
         error: 'A name must be procided',
       });
     } else {
-      Course.findOneAndDelete({ name: req.query.name.toString() }).then((course) => {
+      plate.findOneAndDelete({ name: req.query.name.toString() }).then((course) => {
         if (!course) {
           res.status(404).send();
         } else {
@@ -94,14 +96,14 @@ class CourseRoutes {
   }
 
   routes() {
-    this.router.get('/courses', this.getCourses);
-    this.router.get('/courses/:id', this.getCourseById);
-    this.router.post('/courses', this.postCourse);
-    this.router.patch('/courses', this.patchCourse);
-    this.router.delete('/courses', this.deleteCourse);
+    this.router.get('/plates', this.getPlates);
+    this.router.get('/plates/:id', this.getPlateById);
+    this.router.post('/plates', this.postPlate);
+    this.router.patch('/plates', this.patchPlate);
+    this.router.delete('/plates', this.deletePlate);
   }
 }
 
-const courseRoutes = new CourseRoutes();
+const courseRoutes = new PlateRoutes();
 courseRoutes.routes();
 export default courseRoutes.router;

@@ -1,5 +1,5 @@
 import {Request, Response, Router} from 'express'
-import {Menu} from '../models/Menu'
+import {menu} from '../schemas/MenuSchema'
 
 class MenuRoutes {
   router: Router;
@@ -11,7 +11,7 @@ class MenuRoutes {
   getMenus(req: Request, res: Response) {
     const filter = req.query.name?{name: req.query.name.toString()}:{};
 
-    Menu.find(filter).then((menus) => {
+    menu.find(filter).then((menus) => {
       if (menus.length !== 0) {
         res.send(menus);
       } else {
@@ -23,7 +23,7 @@ class MenuRoutes {
   }
 
   getMenuById(req: Request, res: Response) {
-    Menu.findById(req.params.id).then((menus) => {
+    menu.findById(req.params.id).then((menus) => {
       if (!menus) {
         res.status(404).send();
       } else {
@@ -35,7 +35,7 @@ class MenuRoutes {
   }
 
   postMenu(req: Request, res: Response) {
-    const menu = new Menu(req.body);
+    const menu = new menu(req.body);
     menu.save().then((menus) => {
       res.status(201).send(menus);
     }).catch((error: Error) => {
@@ -59,7 +59,7 @@ class MenuRoutes {
           error: 'Update is not permitted',
         });
       } else {
-        Menu.findOneAndUpdate({ name: req.query.name.toString() }, req.body, {
+        menu.findOneAndUpdate({ name: req.query.name.toString() }, req.body, {
           new: true,
           runValidators: true,
         }).then((menu) => {
@@ -81,7 +81,7 @@ class MenuRoutes {
         error: 'A name must be provided',
       });
     } else {
-      Menu.findOneAndDelete({ name: req.query.name.toString() }).then((menu) => {
+      menu.findOneAndDelete({ name: req.query.name.toString() }).then((menu) => {
         if (!menu) {
           res.status(404).send();
         } else {

@@ -1,8 +1,8 @@
-import express from 'express'
-import morgan from 'morgan'
-import mongoose from 'mongoose'
-import compression from 'compression'
-import {apiRoutes} from './routes/index.routes'
+import express from 'express';
+import morgan from 'morgan';
+import mongoose from 'mongoose';
+import compression from 'compression';
+import {ApiRoutes} from './routes/index.routes';
 
 export class Server {
   public app = express();
@@ -23,7 +23,7 @@ export class Server {
     this.app.use(express.urlencoded({extended: false}));
     this.app.use(compression());
 
-    this.app.use(apiRoutes);
+    this.app.use(ApiRoutes.router);
   }
 
   public start() {

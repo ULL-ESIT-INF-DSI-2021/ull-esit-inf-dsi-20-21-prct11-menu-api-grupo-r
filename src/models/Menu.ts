@@ -4,16 +4,18 @@ import {MacroNutrients} from "./MacroNutrients";
 
 
 export class Menu {
+  public name_: string;
   public price_: number;
   public plates_: Plate[];
-  public ingredients_: Ingredient[];
+  public mainIngredient_: Ingredient;
   public nutritionalValues_: MacroNutrients;
 
 
-  constructor(newPrice: number, newPlates: Plate[], newIngredients: Ingredient[], newNutritionalValues: MacroNutrients) {
+  constructor(newName: string, newPrice: number, newPlates: Plate[], newIngredients: Ingredient, newNutritionalValues: MacroNutrients) {
+    this.name_ = newName;
     this.price_ = newPrice;
     this.plates_ = newPlates;
-    this.ingredients_ = newIngredients;
+    this.mainIngredient_ = newIngredients;
     this.nutritionalValues_ = newNutritionalValues;
   }
 }

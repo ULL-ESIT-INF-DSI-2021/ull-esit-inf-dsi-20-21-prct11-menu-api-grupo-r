@@ -1,13 +1,26 @@
-import {Location} from './Location'
-import {FoodGroup} from './Enums'
 import {MacroNutrients} from './MacroNutrients'
+
+
+/**
+ * Contains all the poossible food types of an ingredient.
+ */
+export enum IngredientType {
+  egg = 'egg',
+  fish = 'fish',
+  meat = 'meat',
+  milk = 'milk',
+  fruit = 'fruit',
+  cereals = 'cereals',
+  vegetables = 'vegetables',
+}
+
 
 /**
  * Stores a simple ingredient.
  * @var name_ Name of the ingredient.
  * @var price_ Price of the ingredient for each 100gr.
  * @var location_ Origin of the ingredient.
- * @var foodGroup_ Food group of the ingredient.
+ * @var ingredientType_ Food group of the ingredient.
  * @var macroNutrients_ Macronutrients in each 100gr.
  * @var amount_ Amount of the ingredient count in grams.
  */
@@ -15,7 +28,7 @@ export class Ingredient {
   private name_: string;
   private price_: number;
   private location_: Location;
-  private foodGroup_: FoodGroup;
+  private ingredientType_: IngredientType;
   private macroNutrients_: MacroNutrients;
   private amount_: number;
 
@@ -23,14 +36,14 @@ export class Ingredient {
    * Stores all the values.
    * @param newPrice Price of the ingredient.
    * @param newLocation Origin of the ingredient.
-   * @param newFoodGroup Food group of the ingredient.
+   * @param newIngredientType Food group of the ingredient.
    * @param newMacroNutrients Macronutrients in each 100gr of the ingredient.
    */
-  constructor(newName: string, newPrice: number, newLocation: Location, newFoodGroup: FoodGroup, newMacroNutrients: MacroNutrients, newAmount: number) {
+  constructor(newName: string, newPrice: number, newLocation: Location, newIngredientType: IngredientType, newMacroNutrients: MacroNutrients, newAmount: number) {
     this.name_ = newName;
     this.price_ = newPrice;
     this.location_ = newLocation;
-    this.foodGroup_ = newFoodGroup;
+    this.ingredientType_ = newIngredientType;
     this.macroNutrients_ = newMacroNutrients;
     this.amount_ = newAmount;
   }
@@ -83,11 +96,11 @@ export class Ingredient {
   }
   
   /**
-   * Sets a new value for the foodGroup.
-   * @param newFoodGroup Contains the foodGroup of the ingredient.
+   * Sets a new value for the ingredientType.
+   * @param newIngredientType Contains the ingredientType of the ingredient.
    */
-   public set foodGroup(newFoodGroup: FoodGroup) {
-    this.foodGroup_ = newFoodGroup;
+   public set ingredientType(newIngredientType: IngredientType) {
+    this.ingredientType_ = newIngredientType;
   }
   
   /**
@@ -134,11 +147,11 @@ export class Ingredient {
   }
 
   /**
-   * Returns the value of the foodGroup.
-   * @returns The foodGroup of the ingredient.
+   * Returns the value of the ingredientType.
+   * @returns The ingredientType of the ingredient.
    */
-  public get foodGroup(): FoodGroup {
-    return this.foodGroup_;
+  public get ingredientType(): IngredientType {
+    return this.ingredientType_;
   }
 
   /**

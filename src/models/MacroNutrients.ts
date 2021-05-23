@@ -4,7 +4,7 @@
  * @var proteins_ Contains the proteins in 100gr.
  * @var lipids_ Contains the lipids in 100gr.
  */
-export class MacroNutrients {
+ export class MacroNutrients {
   private carbohydrates_: number;
   private proteins_: number;
   private lipids_: number;
